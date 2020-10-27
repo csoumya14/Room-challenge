@@ -12,7 +12,7 @@ const Container = styled.div`
 
   @media only screen and (min-width: 768px) and (max-width: 1440px) {
     flex-direction: row;
-    height: 70vh;
+    height: 59vh;
   }
   @media only screen and (min-width: 421px) and (max-width: 767px) {
     flex-direction: column;
@@ -85,12 +85,12 @@ position: relative;
       width: 18%;
       height: 20%;
       left: 60vw;
-      top: 61vh;
+      top: 50vh;
       
     } 
     .images { 
       width:60vw;
-      height: 70vh;
+      height: 59vh;
       object-fit:cover;  
     }  
 }
@@ -133,8 +133,8 @@ const TextSection = styled.div`
   width: 100vw;
   @media only screen and (min-width: 768px) and (max-width: 1440px) {
     .heading {
-      font-size: 42px;
-      margin-top: 29%;
+      font-size: 36px;
+      margin-top: 20%;
       width: 12em;
       margin-left: 2.2em;
       font-weight: 600;

@@ -4,10 +4,34 @@ import darkImage from '../images/image-about-dark.jpg'
 import lightImage from '../images/image-about-light.jpg'
 
 const Container = styled.div`
-  @media only screen and (max-width: 420px) {
-    display: flex;
+  display: flex;
+  width: 100vw;
+  @media only screen and (min-width: 768px) and (max-width: 1440px) {
+    flex-direction: row;
+    .dark-image {
+      margin-top: 0%;
+      object-fit: cover;
+    }
+    .light-image {
+      margin-top: 0%;
+      margin-left: 5%;
+    }
+  }
+  @media only screen and (min-width: 421px) and (max-width: 767px) {
     flex-direction: column;
-    width: 100vw;
+    height: 110vh;
+    .dark-image {
+      margin-top: 15%;
+      height: 35vh;
+      object-fit: cover;
+    }
+    .light-image {
+      margin-top: 10%;
+    }
+  }
+
+  @media only screen and (max-width: 420px) {
+    flex-direction: column;
     height: 110vh;
     .dark-image {
       margin-top: 5%;
@@ -16,10 +40,44 @@ const Container = styled.div`
     }
     .light-image {
       margin-top: 10%;
+      object-fit: cover;
     }
   }
 `
 const TextSection = styled.div`
+  @media only screen and (min-width: 768px) and (max-width: 1440px) {
+    width: 40vw;
+    .heading {
+      margin-top: 15%;
+      letter-spacing: 0.4em;
+      margin-left: 4em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .paragraph {
+      margin-left: 4em;
+      line-height: 1.6;
+      width: 40em;
+      color: hsl(0, 0%, 63%);
+    }
+  }
+
+  @media only screen and (min-width: 421px) and (max-width: 767px) {
+    width: 100vw;
+    .heading {
+      margin-top: 15%;
+      letter-spacing: 0.4em;
+      margin-left: 5em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .paragraph {
+      margin-left: 5em;
+      line-height: 1.6;
+      width: 30em;
+      color: hsl(0, 0%, 63%);
+    }
+  }
   @media only screen and (max-width: 420px) {
     width: 100vw;
     .heading {

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import hamburgerIcon from '../images/icon-hamburger.svg'
 import closeIcon from '../images/icon-close.svg'
+import { useViewPort } from './customViewPort'
 
 const Container = styled.div`
   width: 100%;
@@ -11,6 +12,11 @@ const Container = styled.div`
     margin-top: 4em;
     margin-left: 2em;
     display: none;
+  }
+  @media only screen and (min-width: 421px) and (max-width: 767px) {
+    .hambIcon {
+      display: block;
+    }
   }
   @media only screen and (max-width: 420px) {
     .hambIcon {
@@ -23,16 +29,11 @@ const Header = styled.div`
   width: 100%;
   background-color: transparent;
   position: absolute;
-  @media only screen and (min-width: 1024px) and (max-width: 1365px) {
-    border-bottom: 1px solid #1a1a1d;
-  }
-  @media only screen and (min-width: 768px) and (max-width: 1023px) {
-    border-bottom: 1px solid #1a1a1d;
-  }
 `
 
 const StyledLink = styled.a`
   display: inline-block;
+  position: relative;
   padding: 1px;
   text-decoration: none;
   color: hsl(0, 0%, 0%);
@@ -40,21 +41,17 @@ const StyledLink = styled.a`
   margin-top: 1em;
   padding-right: 2.5em;
   text-transform: lowercase;
-
   cursor: pointer;
-  @media only screen and (min-width: 421px) and (max-width: 767px) {
-    font-size: 14px;
-  }
-  @media only screen and (max-width: 420px) {
+  @media only screen and (min-width: 768px) and (max-width: 1440px) {
+    color: hsl(0, 0%, 100%);
+    margin-top: 0em;
   }
 `
 
 const Nav = styled.div`
   width: 100%;
-
   display: flex;
   flex-direction: row;
-
   align-items: center;
   justify-items: center;
   padding: 4em;
@@ -63,91 +60,73 @@ const Nav = styled.div`
     margin-left: -2em;
     padding-right:4em;
   }
-  @media only screen and (min-width: 1024px) and (max-width: 1365px) {
-    margin-left: 76px;
+  .headingNav{
+    display:none
   }
-  @media only screen and (min-width: 768px) and (max-width: 1023px) {
-    margin-left: 26px;
+  ${StyledLink}  {
+     text-decoration: none;
+     &:after {
+       content: '';
+       height: 3px;
+       position: absolute;
+       bottom: 0;
+       top:2em;
+       left: 1em;
+       width: 0%;
+       background: hsl(0, 0%, 100%);
+       transition: 0.2s;
+     }
+     &:hover:after {
+       width: 1.5em;
+     }
+   }
+  @media only screen and (min-width: 768px) and (max-width: 1440px) {
+    color: hsl(0, 0%, 100%);
+    .crossIcon{
+      display: none;
+    }
+    .headingNav{
+      display:block;
+      color:hsl(0, 0%, 100%);
+      padding-right:3em;
+    }  
   }
   @media only screen and (min-width: 421px) and (max-width: 767px) {
-    margin-left: 6px;
+    margin-top: -5rem;
+    background-color: hsl(0, 0%, 100%);
+    .headingNav{
+      display:none
+    }
+    ${StyledLink}  { 
+      &:after { 
+        background:hsl(0, 0%, 27%); 
+      } 
+    }
   }
   @media only screen and (max-width: 420px) {
     margin-top: -5rem;
-
     background-color: hsl(0, 0%, 100%);
-    
-
-  ${StyledLink} {
-    position: relative;
-    
-    z-index: 1;
-    &:hover {
-      color: #fff;
-      transition: all 0.5s;
+    .headingNav{
+      display:none
     }
-    &:after {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      margin: auto;
-
-      height: 1px;
-      content: '.';
-      color: transparent;
-      background: #e3afbc;
-      visibility: none;
-      opacity: 0;
-      z-index: -1;
-      transition: all 0.5s;
+    ${StyledLink}  {
+      &:after { 
+        background:hsl(0, 0%, 27%)  ; 
+      } 
     }
-    &:before {
-      transition: all 0.5s;
-    }
-    &:hover::after {
-      opacity: 1;
-      visibility: visible;
-      height: 100%;
-    }
-  }
 `
 
-const SideBar = () => {
-  const [isSmallScreen, setIsSmallScreen] = useState(false)
-  const [isNavVisible, setIsNavVisible] = useState(false)
+const SideBar = ({ toggleNav, isNavVisible }) => {
+  const [isSmallScreen] = useViewPort()
 
-  const toggleNav = () => {
-    setIsNavVisible(!isNavVisible)
-  }
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width:420px)')
-    mediaQuery.addListener(handleMediaQueryChange)
-    handleMediaQueryChange(mediaQuery)
-
-    return () => {
-      mediaQuery.removeListener(handleMediaQueryChange)
-    }
-  }, [])
-
-  const handleMediaQueryChange = (mediaQuery) => {
-    if (mediaQuery.matches) {
-      setIsSmallScreen(true)
-    } else {
-      setIsSmallScreen(false)
-    }
-  }
   return (
     <Container>
       <img className="hambIcon" src={hamburgerIcon} onClick={toggleNav} alt="hamburger-menu" />
-
       {(!isSmallScreen || isNavVisible) && (
         <Header>
           <Nav>
             <img className="crossIcon" src={closeIcon} onClick={toggleNav} alt="hamburger-menu" />
+            <h2 className="headingNav">room</h2>
             <StyledLink href="#">Home</StyledLink>
             <StyledLink href="#">shop</StyledLink>
             <StyledLink href="#">about</StyledLink>

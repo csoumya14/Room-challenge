@@ -28,7 +28,8 @@ const Container = styled.div`
 const Header = styled.div`
   width: 100%;
   background-color: transparent;
-  position: absolute;
+  position: fixed;
+  z-index: 2;
 `
 
 const StyledLink = styled.a`
